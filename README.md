@@ -1,28 +1,93 @@
-Gesture-Controlled Flappy Bird with Deep LearningAbstractThis project implements the classic Flappy Bird game, but with a modern twist: you control the bird using your hand gestures. The application uses a webcam (OpenCV) to capture your hand, a real-time hand-tracking model (MediaPipe) to extract 21 3D landmarks, and a custom-trained Multi-Layer Perceptron (MLP) deep learning model (built with TensorFlow/Keras) to classify your gestures.The game itself is built in Pygame. The model is trained to recognize three distinct gestures:THUMBS_UP: Makes the bird flap (go up).THUMBS_DOWN: Makes the bird dive (go down faster).NEUTRAL: The bird falls normally due to gravity.This repository includes the complete pipeline: data collection, model training, real-time game implementation, and model analysis.Project StructureOWN-FLAPPY/
-├── ─ __pycache__/
-├── ─ DataCollector.py         # Script to record your hand gestures
-├── ─ GameEnvironmentModule.py # The Pygame flappy bird game logic
-├── ─ HandRecognitionModule.py # Handles MediaPipe and calculates relative coordinates
-├── ─ GestureInterpreterModule.py # Loads and runs the trained MLP model
-├── ─ ModelTrainer.py          # Script to train the MLP model on your data
-├── ─ ModelAnalyzer.py         # Script to analyze the model and create plots
-├── ─ main.py                  # Main script to run the final game
-├── ─ requirements.txt         # All necessary Python libraries
-├── ─ gestures.csv             # Your collected gesture data
-├── ─ gesture_model.keras      # Your trained MLP model
-├── ─ scaler.pkl               # The data scaler for your model
-├── ─ label_encoder.pkl        # The label encoder for your model
-└── ─ training_history.pkl     # The training history for analysis
-Setup and Run InstructionsFollow these steps exactly to set up and run the project.PrerequisitesA 64-bit version of Python, such as Python 3.10 or 3.11. (This project will not work on 32-bit Python or versions 3.12+).A webcam.Step 1: Install DependenciesDownload all the .py files and the requirements.txt file into a single folder.Open your terminal (like VS Code Terminal or Command Prompt).Navigate to your project folder:cd path/to/your/OWN-FLAPPY/folder
-Install all the required libraries using the requirements.txt file. Use the Python command for your specific version (e.g., py -3.10).
-py -3.10 -m pip install -r requirements.txt
+# **🕹️ Gesture-Controlled Flappy Bird (Deep Learning Edition)**
 
-Step 2: Collect Training DataRun the Data Collector script:py -3.10 DataCollector.py
-A webcam window will open. Click on this window to make it active.Press the following keys to collect data. Make sure to move your hand around (left, right, up, down) while collecting to get a good dataset.0 : Start collecting NEUTRAL gestures.1 : Start collecting THUMBS_UP gestures.2 : Start collecting THUMBS_DOWN gestures.s : Stop collecting the current gesture.q : Quit the script and save your data to gestures.csv.
+## **🧠 Abstract**
 
-Step 3: Train Your Deep Learning ModelRun the Model Trainer script. This will read your gestures.csv file, train the MLP model, and save all the model files (gesture_model.keras, scaler.pkl, etc.).py -3.10 ModelTrainer.py
+This project reimagines the **classic Flappy Bird** game with a **modern deep learning twist** — you control the bird using your **hand gestures**\!
 
-Step 4: Play the Game!You're ready to play! Run the main script:py -3.10 main.py
-The game and your webcam feed will open. Use your gestures to control the bird!(Optional)
+Using a **webcam (OpenCV)** for real-time video input, the application employs **MediaPipe** to extract **21 3D hand landmarks** and a **custom-trained Multi-Layer Perceptron (MLP)** model (built with **TensorFlow/Keras**) to classify gestures.
 
- Step 5: Analyze Your ModelAfter training, you can run the analyzer to generate the plots for your paper (confusion_matrix.png, training_plots.png, etc.).py -3.10 ModelAnalyzer.py
+The **game** itself is built in **Pygame**, where each gesture controls the bird’s behavior:
+
+* 👍 **THUMBS\_UP** → Bird flaps (goes up)  
+* 👎 **THUMBS\_DOWN** → Bird dives (goes down faster)  
+* ✋ **NEUTRAL** → Bird falls normally due to gravity
+
+This repository includes the **complete pipeline** — from data collection and model training to real-time gameplay and model analysis.
+
+## **📁 Project Structure**
+
+OWN-FLAPPY/  
+├── \_\_pycache\_\_/  
+├── DataCollector.py            \# Records your hand gestures via webcam  
+├── GameEnvironmentModule.py    \# Core Pygame logic for Flappy Bird  
+├── HandRecognitionModule.py    \# Handles MediaPipe hand tracking & coordinates  
+├── GestureInterpreterModule.py \# Loads and runs the trained MLP model  
+├── ModelTrainer.py             \# Trains the MLP model on gesture data  
+├── ModelAnalyzer.py            \# Analyzes model performance and generates plots  
+├── main.py                     \# Main script to run the gesture-controlled game  
+├── requirements.txt            \# All necessary Python libraries  
+│  
+├── (Generated Files)  
+├── gestures.csv                \# Collected gesture dataset  
+├── gesture\_model.keras         \# Trained MLP model  
+├── scaler.pkl                  \# Data scaler used in preprocessing  
+├── label\_encoder.pkl           \# Label encoder for gestures  
+├── training\_history.pkl      \# Model training history  
+├── confusion\_matrix.png        \# Saved confusion matrix plot  
+└── training\_history.png         \# Saved accuracy/loss plot
+
+└── shap\_summary\_plot.png      \# Saved accuracy/loss plot
+
+## **⚙️ Setup and Run Instructions**
+
+### **🧩 Prerequisites**
+
+* Python 3.10 (64-bit only)  
+  (This project will not work on Python 3.11, 3.12, 3.13, or any 32-bit version of Python)  
+* **A webcam**
+
+### **🪜 Step-by-Step Guide**
+
+#### **Step 1: Install Dependencies**
+
+1. Download all .py files and the requirements.txt file into a single folder.  
+2. Open your terminal (VS Code Terminal or Command Prompt).  
+3. Navigate to your project folder:  
+   cd path/to/your/OWN-FLAPPY/folder
+
+4. Install all dependencies using Python 3.10's pip:  
+   py \-3.10 \-m pip install \-r requirements.txt
+
+#### **Step 2: Collect Gesture Data**
+
+You must teach the model what your gestures look like.
+
+1. Run the data collector:  
+   py \-3.10 DataCollector.py
+
+#### **Step 3: Train Your MLP Model**
+
+Now that you have data, you can train your deep learning model.
+
+1. Run the model trainer:  
+   py \-3.10 ModelTrainer.py
+
+2. This script will load gestures.csv, train the MLP for 50 epochs, and save all the necessary files (gesture\_model.keras, scaler.pkl, etc.).
+
+#### **Step 4 (Optional): Analyze Your Model**
+
+Want to see how well your model trained?
+
+1. Run the model analyzer:  
+   py \-3.10 ModelAnalyzer.py
+
+2. This will create three image files in your folder: confusion\_matrix.png and training\_history.png,shap\_summary\_plot.png .
+
+#### **Step 5: Play the Game\!**
+
+You're all set\! Your trained model will be loaded automatically.
+
+1. Run the main game script:  
+   py \-3.10 main.py
+
+Two windows will open. Use your hand in the "Gesture Control" window to control the bird in the "Gesture Flappy Bird" window. Good luck\!
