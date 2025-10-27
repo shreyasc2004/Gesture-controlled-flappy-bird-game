@@ -91,3 +91,5 @@ You're all set\! Your trained model will be loaded automatically.
    py \-3.10 main.py
 
 Two windows will open. Use your hand in the "Gesture Control" window to control the bird in the "Gesture Flappy Bird" window. Good luck\!
+Report link - https://acrobat.adobe.com/id/urn:aaid:sc:AP:87430acc-c132-4183-9a55-3898f6d5bea8
+
